@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+}
+
+.star {
+  font-size: 24px;
+  color: #d3d3d3;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.filled {
+  color: gold;
+}

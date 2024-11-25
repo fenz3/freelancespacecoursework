@@ -1,0 +1,19 @@
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  width: 35%;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-button {
+  width: 12%;
+}

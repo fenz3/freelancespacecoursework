@@ -1,0 +1,28 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-text {
+  margin-bottom: 16px;
+  color: var(--color-text-secondary);
+}
+
+.name-inputs {
+  display: flex;
+  gap: 15px;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.confirm-password-container {
+  margin-bottom: 16px;
+}

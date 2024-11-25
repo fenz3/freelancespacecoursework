@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.auth-container {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  font-family: Inter, sans-serif;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-secondary);
+}
+
+.left-side,
+.right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.left-side {
+  background-color: var(--color-background-primary);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('~/assets/images/auth-background.jpg') !important;
+    font-size: 30px;
+    color: #fff;
+}
+
+.right-side {
+  flex-direction: column;
+}
+
+.logo-wrapper {
+  place-self: center center;
+  width: 400px;
+  height: 120px;
+  object-fit: contain;
+  object-position: center;
+  filter: brightness(0) invert(1);
+}
+
+.form-title {
+  width: 400px;
+  margin-bottom: 8px;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.2;
+}
