@@ -1,1 +1,0 @@
-export {CategoryDto} from "shared/src"
