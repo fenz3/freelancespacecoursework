@@ -1,11 +1,10 @@
-import {
-  getAll
-} from './actions';
+import { getAll, getSubcategoriesByCategoryId } from './actions';
 import { actions, reducer } from './slice';
 
 const allActions = {
   ...actions,
-  getAll
+  getAll,
+  getSubcategoriesByCategoryId,
 };
 
 export { allActions as actions, reducer };

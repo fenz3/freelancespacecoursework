@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 46px;
   padding: 10px 16px;
-  font-family: Inter, sans-serif;
+  font-family: Macan, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.2;
@@ -38,6 +38,7 @@
 .button-outlined {
   background-color: transparent;
   border: 1px solid var(--color-brand-primary);
+  color: var(--color-text-primary);
 }
 
 .button-outlined:hover:not(:disabled) {

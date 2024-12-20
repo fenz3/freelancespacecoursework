@@ -1,6 +1,6 @@
-import { SignInRequestDto } from '~/common/types/types';
+import { SignInRequestDTO } from '~/common/types/types';
 
-const DEFAULT_SIGN_IN_PAYLOAD: SignInRequestDto = {
+const DEFAULT_SIGN_IN_PAYLOAD: SignInRequestDTO = {
   email: '',
   password: '',
 };

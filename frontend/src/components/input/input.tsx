@@ -23,7 +23,9 @@ type Properties<T extends FieldValues> = {
   rightIcon?: JSX.Element;
   rowsCount?: number;
   type?: 'email' | 'password' | 'search' | 'text' | 'file' | 'number';
-  onImageChange?: (file: File | null) => void; // callback for handling image selection
+  onImageChange?: (file: File | null) => void;
+  min?: number;
+  max?: number;
 };
 
 const Input = <T extends FieldValues>({
@@ -41,6 +43,8 @@ const Input = <T extends FieldValues>({
   rowsCount,
   type = 'text',
   onImageChange,
+  min,
+  max,
 }: Properties<T>): JSX.Element => {
   const { field } = useController({ control, name });
   const error = errors ? errors[name]?.message : undefined;
@@ -68,7 +72,8 @@ const Input = <T extends FieldValues>({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (isNumberInput) {
-      field.onChange(e.target.value ? Number(e.target.value) : '');
+      const value = e.target.value ? Number(e.target.value) : '';
+      field.onChange(value);
     } else {
       field.onChange(e.target.value);
     }
@@ -118,6 +123,7 @@ const Input = <T extends FieldValues>({
             readOnly={isReadOnly}
             type={type}
             value={isFileInput ? undefined : field.value}
+            {...(isNumberInput && { min, max })}
           />
         )}
 

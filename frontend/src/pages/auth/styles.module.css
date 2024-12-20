@@ -7,7 +7,7 @@
   display: flex;
   flex-grow: 1;
   width: 100%;
-  font-family: Inter, sans-serif;
+  font-family: Macan, sans-serif;
   color: var(--color-text-primary);
   background-color: var(--color-background-secondary);
 }
@@ -27,8 +27,8 @@
   background-size: cover;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('~/assets/images/auth-background.jpg') !important;
-    font-size: 30px;
-    color: #fff;
+  font-size: 30px;
+  color: #fff;
 }
 
 .right-side {

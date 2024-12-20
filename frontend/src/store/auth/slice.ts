@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchAuthenticatedUser, signIn, signUp, signOut } from './actions';
-import { UserDto, ValueOf } from '~/common/types/types';
+import { UserDTO, ValueOf } from '~/common/types/types';
 import { DataStatus } from '~/common/enums/enums';
 import { notifyError } from '~/utils/notification/notification';
 import { removeToken } from '~/utils/auth';
 
 export interface AuthState {
-  user: UserDto | null;
+  user: UserDTO | null;
   status: ValueOf<typeof DataStatus>;
   error: { code: string | number | null; message: string | null };
 }

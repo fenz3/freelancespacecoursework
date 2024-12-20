@@ -11,11 +11,6 @@
   color: var(--color-text-secondary);
 }
 
-.form-reset-text {
-  margin: 0;
-  color: var(--color-text-secondary);
-}
-
 .password-container {
   position: relative;
   display: flex;

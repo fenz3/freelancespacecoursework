@@ -7,6 +7,7 @@ const AppPath = {
   SIGN_UP: '/sign-up',
   PROFILE: '/profile',
   NOT_FOUND: '/not-found',
+  MY_ORDERS: '/my-orders',
   ANY: '*',
 } as const;
 

@@ -1,7 +1,7 @@
 import {
-  AuthResponseDto,
-  SignInRequestDto,
-  SignUpRequestDto,
+  AuthResponseDTO,
+  SignInRequestDTO,
+  SignUpRequestDTO,
 } from '~/common/types/types';
 import { ApiPath, ContentType } from '../../common/enums/enums';
 import { getToken } from '../../utils/auth';
@@ -25,7 +25,7 @@ class Auth {
     this.basePath = ApiPath.AUTH;
   }
 
-  public getAuthenticatedUser(): Promise<AuthResponseDto> {
+  public getAuthenticatedUser(): Promise<AuthResponseDTO> {
     const token = getToken();
     return this.http.load(this.getUrl(ApiPath.AUTHENTICATED_USER), {
       method: 'GET',
@@ -33,7 +33,7 @@ class Auth {
     });
   }
 
-  public signIn(credentials: SignInRequestDto): Promise<AuthResponseDto> {
+  public signIn(credentials: SignInRequestDTO): Promise<AuthResponseDTO> {
     return this.http.load(this.getUrl(ApiPath.SIGN_IN), {
       method: 'POST',
       contentType: ContentType.JSON,
@@ -41,7 +41,7 @@ class Auth {
     });
   }
 
-  public signUp(credentials: SignUpRequestDto): Promise<AuthResponseDto> {
+  public signUp(credentials: SignUpRequestDTO): Promise<AuthResponseDTO> {
     return this.http.load(this.getUrl(ApiPath.SIGN_UP), {
       method: 'POST',
       contentType: ContentType.JSON,

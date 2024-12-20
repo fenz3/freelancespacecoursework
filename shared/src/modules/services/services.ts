@@ -1,50 +1,81 @@
-export type ServiceDto = {
+export type ServiceDTO = {
   id: number;
   title: string;
   categoryId: number;
-  category?: CategoryDto;
-  smallDesc: string;
+  category?: CategoryDTO;
+  subcategoryId: number;
+  subcategory?: SubcategoryDTO;
   description: string;
   coverImages: string[];
-  portfolioItems: string[];
   startingPrice: number;
   deliveryTime: number;
-  skillsRequired: string[];
+  serviceDetails: string[];
   rating: number;
   ratingCount: number;
+  isDeleted: boolean;
   creatorId: number;
-  creator?: UserDto;
+  creator?: UserDTO;
+  reviews?: ReviewDTO[];
+  orders?: OrderDTO[];
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type GetAllServicesDTO = {
+  services: ServiceDTO[];
+  totalCount: number;
 };
 
 export type ServiceCreateInput = {
   title: string;
   categoryId: number;
-  smallDesc: string;
+  subcategoryId: number;
   description: string;
   coverImages: string[];
-  portfolioItems: string[];
   startingPrice: number;
   deliveryTime: number;
-  skillsRequired: string[];
+  serviceDetails: string[];
 };
 
-export type ServiceCreateRequestDto = {
+export type ServiceCreateRequestDTO = {
   title: string;
   categoryId: number;
-  smallDesc: string;
+  subcategoryId: number;
   description: string;
   coverImages: File[];
-  portfolioItems?: File[];
   startingPrice: number;
   deliveryTime: number;
-  skillsRequired: string[];
+  serviceDetails: string[] | string;
 };
 
+type GetAllServicesRequestDTO = {
+  name: string;
+  creatorId?: number;
+  categoryId?: number;
+  subcategoryId?: number;
+  deliveryTime?: number;
+  minPrice?: number;
+  maxPrice?: number;
+} & PaginationQueryParameters;
+
+export { type GetAllServicesRequestDTO };
+
+type GetAllServicesRequestFilter = {
+  title?: { contains: string; mode: string };
+  creatorId?: number;
+  categoryId?: number;
+  subcategoryId?: number;
+  deliveryTime?: { lte: number };
+  startingPrice?: { lte?: number | undefined; gte?: number | undefined };
+};
+export { type GetAllServicesRequestFilter };
+
 import { z } from 'zod';
-import { UserDto } from '../users/types';
-import { CategoryDto } from '../categories/categories';
+import { UserDTO } from '../users/types';
+import { CategoryDTO, SubcategoryDTO } from '../categories/categories';
+import { PaginationQueryParameters } from '../common/common';
+import { ReviewDTO } from '../reviews/reviews';
+import { OrderDTO } from '../orders/orders';
 
 export const ServiceCreateSchema = z.object({
   title: z
@@ -54,13 +85,11 @@ export const ServiceCreateSchema = z.object({
   categoryId: z
     .number()
     .int({ message: 'Category ID must be an integer.' })
-    .positive({ message: 'Category ID must be a positive number.' }),
-  smallDesc: z
-    .string()
-    .min(10, { message: 'Small description must be at least 10 characters.' })
-    .max(100, {
-      message: 'Small description must be no more than 100 characters.',
-    }),
+    .positive({ message: 'Choose category to continue.' }),
+  subcategoryId: z
+    .number()
+    .int({ message: 'Category ID must be an integer.' })
+    .positive({ message: 'Choose subcategory to continue.' }),
   description: z
     .string()
     .min(20, { message: 'Description must be at least 20 characters.' })
@@ -71,10 +100,6 @@ export const ServiceCreateSchema = z.object({
     .array(z.union([z.instanceof(File), z.string().url()]))
     .nonempty({ message: 'At least one cover image is required.' })
     .max(5, { message: 'No more than 5 cover images are allowed.' }),
-  portfolioItems: z
-    .array(z.union([z.instanceof(File), z.string().url()]))
-    .max(3, { message: 'No more than 3 portfolio images are allowed.' })
-    .optional(),
   startingPrice: z
     .number()
     .int({ message: 'Starting price must be an integer.' })
@@ -82,12 +107,12 @@ export const ServiceCreateSchema = z.object({
   deliveryTime: z
     .number()
     .int({ message: 'Delivery time must be an integer.' })
-    .positive({ message: 'Delivery time must be a positive number.' }),
-  skillsRequired: z
-    .array(
-      z
-        .string()
-        .min(1, { message: 'Each skill must be at least 1 character long.' })
-    )
-    .nonempty({ message: 'At least one skill is required.' }),
+    .positive({ message: 'Delivery time must be a positive number.' })
+    .max(99, { message: 'Maximum delivery time is 99 days.' }),
+  serviceDetails: z
+    .string()
+    .min(1, { message: 'Add at least one detail.' })
+    .max(100, {
+      message: 'Service details must be no more than 100 characters.',
+    }),
 });

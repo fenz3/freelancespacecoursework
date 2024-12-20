@@ -19,9 +19,9 @@
   padding: 12px 80px;
 }
 
-.page-content-fullWidth{
+.page-content-bigMargin {
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 0;
+  padding: 1% 15%;
 }

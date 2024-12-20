@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAll, create, update, deleteById, getById } from './actions';
-import { ServiceDto, ValueOf } from '~/common/types/types';
+import { ServiceDTO, ValueOf } from '~/common/types/types';
 import { DataStatus } from '~/common/enums/enums';
-import { notifyError } from '~/utils/notification/notification';
+import { notifyError, notifySuccess } from '~/utils/notification/notification';
 
 export interface ServicesState {
-  service: null | ServiceDto;
-  services: ServiceDto[];
+  service: null | ServiceDTO;
+  services: ServiceDTO[];
+  totalItems: number;
   status: ValueOf<typeof DataStatus>;
   serviceStatus: ValueOf<typeof DataStatus>;
   serviceCreateStatus: ValueOf<typeof DataStatus>;
@@ -17,6 +18,7 @@ export interface ServicesState {
 
 const initialState: ServicesState = {
   service: null,
+  totalItems: 0,
   services: [],
   status: DataStatus.IDLE,
   serviceStatus: DataStatus.IDLE,
@@ -36,7 +38,8 @@ const { reducer, actions, name } = createSlice({
         state.status = DataStatus.PENDING;
       })
       .addCase(getAll.fulfilled, (state, action) => {
-        state.services = action.payload;
+        state.services = action.payload.services;
+        state.totalItems = action.payload.totalCount;
         state.status = DataStatus.SUCCESS;
       })
       .addCase(getAll.rejected, (state, action) => {
@@ -68,6 +71,7 @@ const { reducer, actions, name } = createSlice({
       .addCase(create.fulfilled, (state, action) => {
         state.services = [action.payload, ...state.services];
         state.serviceCreateStatus = DataStatus.SUCCESS;
+        notifySuccess('Service created successfully.');
       })
       .addCase(create.rejected, (state, action) => {
         state.serviceCreateStatus = DataStatus.ERROR;
@@ -104,6 +108,7 @@ const { reducer, actions, name } = createSlice({
           (service) => service.id.toString() !== deletedServiceId
         );
         state.serviceUpdateStatus = DataStatus.SUCCESS;
+        notifySuccess('Service deleted successfully.');
       })
       .addCase(deleteById.rejected, (state, action) => {
         state.serviceDeleteStatus = DataStatus.ERROR;

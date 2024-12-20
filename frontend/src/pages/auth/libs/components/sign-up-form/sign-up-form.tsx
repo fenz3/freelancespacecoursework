@@ -1,5 +1,5 @@
 import {
-  SignUpRequestDto,
+  SignUpRequestDTO,
   signUpRequestSchemaFront,
 } from '~/common/types/types.js';
 import { DEFAULT_SIGN_UP_PAYLOAD } from './libs/constants/constants.js';
@@ -12,7 +12,7 @@ import { SignUpFormFields } from './libs/constants/default-sign-up-payload.const
 import RadioInput from '~/components/radio-input/radio-input.js';
 
 type Properties = {
-  onSubmit: (payload: SignUpRequestDto) => void;
+  onSubmit: (payload: SignUpRequestDTO) => void;
 };
 
 const SignUpForm = ({ onSubmit }: Properties): JSX.Element => {
@@ -25,8 +25,11 @@ const SignUpForm = ({ onSubmit }: Properties): JSX.Element => {
 
   const handleFormSubmit = (event_: React.BaseSyntheticEvent): void => {
     void handleSubmit((formData: SignUpFormFields) => {
-    const { confirmPassword: _confirmPassword, ...dataWithoutConfirmPassword } = formData;
-    onSubmit(dataWithoutConfirmPassword);
+      const {
+        confirmPassword: _confirmPassword,
+        ...dataWithoutConfirmPassword
+      } = formData;
+      onSubmit(dataWithoutConfirmPassword);
     })(event_);
   };
 
@@ -34,15 +37,16 @@ const SignUpForm = ({ onSubmit }: Properties): JSX.Element => {
     setIsPasswordVisible((previousState) => !previousState);
   };
 
-  const roleOptions = [{
-    label: "Hire for a project",
-    value: "CLIENT"
-  },
-  {
-    label: "Work as a freelancer",
-    value: "FREELANCER"
-  },
-]
+  const roleOptions = [
+    {
+      label: 'Hire for a project',
+      value: 'CLIENT',
+    },
+    {
+      label: 'Work as a freelancer',
+      value: 'FREELANCER',
+    },
+  ];
 
   return (
     <form
@@ -54,22 +58,22 @@ const SignUpForm = ({ onSubmit }: Properties): JSX.Element => {
         Have an account? <Link to={AppPath.SIGN_IN}>Log in</Link>
       </p>
       <div className={styles['name-inputs']}>
-      <Input
-        autoComplete="given-name"
-        control={control}
-        errors={errors}
-        label="First Name"
-        name="firstName"
-        type="text"
-      />
-      <Input
-        autoComplete="given-name"
-        control={control}
-        errors={errors}
-        label="Last Name"
-        name="lastName"
-        type="text"
-      />
+        <Input
+          autoComplete="given-name"
+          control={control}
+          errors={errors}
+          label="First Name"
+          name="firstName"
+          type="text"
+        />
+        <Input
+          autoComplete="given-name"
+          control={control}
+          errors={errors}
+          label="Last Name"
+          name="lastName"
+          type="text"
+        />
       </div>
       <Input
         autoComplete="email"
@@ -113,12 +117,12 @@ const SignUpForm = ({ onSubmit }: Properties): JSX.Element => {
           type={isPasswordVisible ? 'text' : 'password'}
         />
       </div>
-      <RadioInput 
-      label="I want to"
-      name="role"
-      control={control}
-      errors={errors}
-      options={roleOptions}
+      <RadioInput
+        label="I want to"
+        name="role"
+        control={control}
+        errors={errors}
+        options={roleOptions}
       />
       <Button label="Create Account" type="submit" />
     </form>

@@ -5,13 +5,13 @@ import styles from './styles.module.css';
 import { useAppDispatch, useAppSelector } from '~/hooks/hooks.js';
 import { AppPath } from '~/common/enums/enums.js';
 import { useEffect } from 'react';
-import { SignInRequestDto, SignUpRequestDto } from '~/common/types/types.js';
+import { SignInRequestDTO, SignUpRequestDTO } from '~/common/types/types.js';
 import logoSrc from '~/assets/images/logo.svg';
 
 const Auth = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
-  const {user} = useAppSelector(({auth}) => auth);
+  const { user } = useAppSelector(({ auth }) => auth);
 
   const navigate = useNavigate();
 
@@ -21,11 +21,11 @@ const Auth = (): JSX.Element => {
     }
   }, [user, dispatch, navigate]);
 
-  const handleSignInSubmit = (payload: SignInRequestDto): void => {
+  const handleSignInSubmit = (payload: SignInRequestDTO): void => {
     void dispatch(authActions.signIn(payload));
   };
 
-  const handleSignUpSubmit = (payload: SignUpRequestDto): void => {
+  const handleSignUpSubmit = (payload: SignUpRequestDTO): void => {
     void dispatch(authActions.signUp(payload));
   };
 
@@ -47,7 +47,7 @@ const Auth = (): JSX.Element => {
     <main className={styles['container']}>
       <section className={styles['auth-container']}>
         <div className={styles['left-side']}>
-        <img alt="logo" className={styles['logo-wrapper']} src={logoSrc} />
+          <img alt="logo" className={styles['logo-wrapper']} src={logoSrc} />
         </div>
         <div className={styles['right-side']}>
           <h3 className={styles['form-title']}>

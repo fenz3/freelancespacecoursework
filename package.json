@@ -1,0 +1,32 @@
+{
+  "name": "freelance-space",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspace=frontend && npm run lint --workspace=backend && npm run lint --workspace=shared",
+    "lint:fix": "npm run lint:fix --workspace=frontend && npm run lint:fix --workspace=backend && npm run lint:fix --workspace=shared",
+    "_prettier": "prettier \"**/*.{js,ts,tsx,json,md,css,html}\"",
+    "format": "npm run _prettier -- --write"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.12.1",
+    "@typescript-eslint/parser": "^8.12.1",
+    "eslint": "^9.13.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3",
+    "typescript-eslint": "^8.12.1"
+  }
+}

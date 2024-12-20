@@ -1,1 +1,2 @@
-export {ImageDisplay} from "./image-display/image-display"
+export { BuyNowForm } from './buy-now-form/buy-now-form';
+export { Rating } from './rating/rating';

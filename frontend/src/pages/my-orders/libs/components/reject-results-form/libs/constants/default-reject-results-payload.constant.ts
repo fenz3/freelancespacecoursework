@@ -1,0 +1,5 @@
+const DEFAULT_REJECT_RESULTS_PAYLOAD = {
+  rejectNotes: '',
+};
+
+export { DEFAULT_REJECT_RESULTS_PAYLOAD };

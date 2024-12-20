@@ -1,0 +1,173 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CLIENT
+  FREELANCER
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  email           String    @unique
+  password        String
+  role            Role      @default(CLIENT)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  Service         Service[]
+  profession      String    @default("")
+  photoUrl        String    @default("")
+  portfolioItems  String[]  @default([])
+  clientOrders    Order[]   @relation("ClientOrders")
+  freelancerOrders Order[]  @relation("FreelancerOrders")
+  createdOffers   Offer[]   @relation("UserOffers") // Match the relation name
+  reviews   Review[]
+}
+
+model Category {
+  id          Int           @id @default(autoincrement())
+  name        String
+  subcategories Subcategory[] // One-to-many relation to Subcategory
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Service     Service[]
+}
+
+model Subcategory {
+  id          Int           @id @default(autoincrement())
+  name        String
+  categoryId  Int           // Foreign key to Category
+  category    Category      @relation(fields: [categoryId], references: [id]) // Relation to Category
+  services    Service[]     // One-to-many relation to Service
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([categoryId]) // Index for faster querying by category
+}
+
+model Service {
+  id             Int          @id @default(autoincrement())
+  title          String
+  categoryId     Int
+  subcategoryId  Int?         // Foreign key to Subcategory (optional)
+  description    String
+  coverImages    String[]
+  startingPrice  Float
+  deliveryTime   Int
+  serviceDetails String[]
+  rating         Float        @default(0.0)
+  ratingCount    Int          @default(0)
+  creatorId      Int
+  isDeleted      Boolean      @default(false)
+  creator        User         @relation(fields: [creatorId], references: [id])
+  category       Category     @relation(fields: [categoryId], references: [id]) // Relation to Category
+  subcategory    Subcategory? @relation(fields: [subcategoryId], references: [id]) // Relation to Subcategory
+  orders         Order[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  reviews   Review[]
+
+  @@index([categoryId])      // Index for faster querying by category
+  @@index([subcategoryId])   // Index for faster querying by subcategory
+}
+
+// Enums
+
+enum OrderStatus {
+  PENDING              // Initial state when order is placed
+  OFFER_SUBMITTED      // Offer has been submitted by client
+  OFFER_ACCEPTED       // Offer has been accepted
+  REJECTED             // Offer or order has been rejected
+  RESULTS_SUBMITTED    // Freelancer submits the results
+  RESULTS_REJECTED     // Client rejects the results
+  COMPLETED            // Task completed successfully
+  EXPIRED            // Task delivery time expired
+}
+
+enum OfferStatus {
+  PENDING    // The offer is awaiting a response
+  ACCEPTED   // The offer is accepted
+  REJECTED   // The offer is rejected
+}
+
+// Models
+
+model Order {
+  id              Int                @id @default(autoincrement())
+  serviceId       Int                // Foreign key to Service
+  service         Service            @relation(fields: [serviceId], references: [id]) // Relation to Service
+  clientId        Int                // Foreign key to User (Client)
+  client          User               @relation("ClientOrders", fields: [clientId], references: [id]) // Relation to User (Client)
+  freelancerId    Int                // Foreign key to User (Freelancer)
+  freelancer      User               @relation("FreelancerOrders", fields: [freelancerId], references: [id]) // Relation to User (Freelancer)
+  status          OrderStatus        @default(PENDING) // Order status
+  taskDetails     String?            // Detailed task description from the client
+  taskDetailsFiles String[]         // Files related to the task description
+  deliveryResponse String?           // Freelancer's work response
+  deliveryResponseFiles String[]    // Files related to the freelancer's response
+  rejectNotes String?           // Client's reject response
+  price           Int                // Agreed price for the order
+  deliveryTime    Int                // Delivery time in days
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  statusHistory   OrderStatusHistory[] // Relation to OrderStatusHistory
+  offers          Offer[]            // Relation to Offer
+  review    Review?
+
+  @@index([serviceId])
+  @@index([clientId])
+  @@index([freelancerId])
+}
+
+model OrderStatusHistory {
+  id          Int         @id @default(autoincrement())
+  orderId     Int         // Foreign key to Order
+  order       Order       @relation(fields: [orderId], references: [id]) // Relation to Order
+  status      OrderStatus // The status being recorded
+  createdAt   DateTime    @default(now()) // Timestamp of the status change
+
+  @@index([orderId])
+}
+
+model Offer {
+  id            Int          @id @default(autoincrement())
+  orderId       Int          // Foreign key to Order
+  order         Order        @relation(fields: [orderId], references: [id]) // Relation to Order
+  creatorId     Int          // Foreign key to User (creator of the offer)
+  creator       User         @relation("UserOffers", fields: [creatorId], references: [id]) // Relation to User
+  details       String       // Details of the offer or task
+  detailsFiles  String[]     // Optional files for the offer details
+  price         Int          // Price proposed by the freelancer
+  deliveryTime  Int          // Delivery time proposed by the freelancer
+  status        OfferStatus  @default(PENDING) // Current status of the offer
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([orderId])
+  @@index([creatorId])
+}
+
+model Review {
+  id          Int       @id @default(autoincrement())
+  rating      Float     @default(0.0) // Rating given by the client
+  details     String?   // Optional review text
+  creatorId   Int       // Foreign key to User (creator of the review)
+  creator     User      @relation(fields: [creatorId], references: [id]) // Relation to User
+  orderId     Int       @unique // Add @unique to enforce one-to-one relationship
+  order       Order     @relation(fields: [orderId], references: [id]) // Relation to Order
+  serviceId   Int       // Foreign key to Service
+  service     Service   @relation(fields: [serviceId], references: [id]) // Relation to Service
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([creatorId])
+  @@index([serviceId])
+  @@index([orderId])
+}

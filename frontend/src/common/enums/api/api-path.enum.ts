@@ -7,6 +7,9 @@ const ApiPath = {
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
 
+  // Users routes
+  USERS: '/users',
+
   // Services routes
   SERVICES: '/services',
 
@@ -15,6 +18,12 @@ const ApiPath = {
 
   // Categories routes
   CATEGORIES: '/categories',
+
+  // Orders routes
+  ORDERS: '/orders',
+
+  // Offers routes
+  OFFERS: '/offers',
 } as const;
 
 export { ApiPath };

@@ -5,8 +5,8 @@ type PaginationQueryParameters = {
 
 export { type PaginationQueryParameters };
 
-type GetAllRequestDto = {
+type GetAllRequestDTO = {
   name: string;
 } & PaginationQueryParameters;
 
-export { type GetAllRequestDto };
+export { type GetAllRequestDTO };

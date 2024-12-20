@@ -1,0 +1,57 @@
+.uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label-text {
+  font-weight: 500;
+}
+
+.label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-primary);
+}
+
+.label.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input {
+  display: none;
+}
+
+.filesContainer {
+  margin-top: 0.5rem;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.fileIcon {
+  margin-right: 0.5rem;
+  color: #666;
+}
+
+.fileName {
+  flex-grow: 1;
+  font-size: 0.875rem;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

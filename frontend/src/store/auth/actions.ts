@@ -2,13 +2,13 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { name } from './slice';
 import {
   AsyncThunkConfig,
-  AuthResponseDto,
-  SignInRequestDto,
-  SignUpRequestDto,
+  AuthResponseDTO,
+  SignInRequestDTO,
+  SignUpRequestDTO,
 } from '~/common/types/types';
 
 const fetchAuthenticatedUser = createAsyncThunk<
-  AuthResponseDto,
+  AuthResponseDTO,
   void,
   AsyncThunkConfig
 >(`${name}/authenticatedUser`, async (_payload, { extra }) => {
@@ -19,8 +19,8 @@ const fetchAuthenticatedUser = createAsyncThunk<
 });
 
 const signIn = createAsyncThunk<
-  AuthResponseDto,
-  SignInRequestDto,
+  AuthResponseDTO,
+  SignInRequestDTO,
   AsyncThunkConfig
 >(`${name}/signIn`, async (credentials, { extra }) => {
   const { authService } = extra;
@@ -31,8 +31,8 @@ const signIn = createAsyncThunk<
 });
 
 const signUp = createAsyncThunk<
-  AuthResponseDto,
-  SignUpRequestDto,
+  AuthResponseDTO,
+  SignUpRequestDTO,
   AsyncThunkConfig
 >(`${name}/signUp`, async (credentials, { extra }) => {
   const { authService } = extra;

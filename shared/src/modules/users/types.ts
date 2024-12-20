@@ -1,20 +1,23 @@
-export type UserDto = {
+export type UserDTO = {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   role: string;
+  profession?: string;
+  photoUrl?: string;
+  portfolioItems?: string[];
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type SignInRequestDto = {
+export type SignInRequestDTO = {
   email: string;
   password: string;
 };
 
-export type SignUpRequestDto = {
+export type SignUpRequestDTO = {
   firstName: string;
   lastName: string;
   email: string;
@@ -22,7 +25,15 @@ export type SignUpRequestDto = {
   role: string;
 };
 
-export type AuthResponseDto = {
+export type UserPatchRequestDTO = {
+  firstName: string;
+  lastName: string;
+  profession: string;
+  photoUrl: File | string;
+  portfolioItems?: File[] | string[];
+};
+
+export type AuthResponseDTO = {
   token: string;
-  user: UserDto;
+  user: UserDTO;
 };

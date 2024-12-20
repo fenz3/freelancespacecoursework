@@ -13,4 +13,4 @@ export const ImageUploadSchema = z.object({
     ),
 });
 
-export type ImageUploadDto = z.infer<typeof ImageUploadSchema>;
+export type ImageUploadDTO = z.infer<typeof ImageUploadSchema>;

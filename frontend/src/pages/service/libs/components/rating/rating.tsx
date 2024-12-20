@@ -1,13 +1,16 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import styles from './styles.module.css';
+import { getValidClassNames } from '~/helpers/helpers';
 
 type RatingProps = {
   rating: number | string;
+  isSmall?: boolean;
 };
 
-const Rating: React.FC<RatingProps> = ({ rating }) => {
-  const numericRating = typeof rating === 'string' ? parseFloat(rating) : rating;
+const Rating: React.FC<RatingProps> = ({ rating, isSmall }) => {
+  const numericRating =
+    typeof rating === 'string' ? parseFloat(rating) : rating;
 
   const clampedRating = Math.min(Math.max(numericRating, 0), 5);
 
@@ -18,11 +21,14 @@ const Rating: React.FC<RatingProps> = ({ rating }) => {
       {stars.map((star) => (
         <FaStar
           key={star}
-          className={`${styles.star} ${star <= clampedRating ? styles.filled : ''}`}
+          className={getValidClassNames(
+            isSmall ? styles.smallStar : styles.star,
+            star <= clampedRating && styles.filled
+          )}
         />
       ))}
     </div>
   );
 };
 
-export default Rating;
+export { Rating };

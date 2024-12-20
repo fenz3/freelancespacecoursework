@@ -1,4 +1,4 @@
-import { SignInRequestDto, signInRequestSchema } from '~/common/types/types.js';
+import { SignInRequestDTO, signInRequestSchema } from '~/common/types/types.js';
 import { DEFAULT_SIGN_IN_PAYLOAD } from './libs/constants/constants.js';
 import styles from './styles.module.css';
 import { useAppForm } from '~/hooks/hooks.js';
@@ -7,11 +7,11 @@ import { AppPath } from '~/common/enums/enums.js';
 import { Button, IconButton, Input, Link } from '~/components/components.js';
 
 type Properties = {
-  onSubmit: (payload: SignInRequestDto) => void;
+  onSubmit: (payload: SignInRequestDTO) => void;
 };
 
 const SignInForm = ({ onSubmit }: Properties): JSX.Element => {
-  const { control, errors, handleSubmit } = useAppForm<SignInRequestDto>({
+  const { control, errors, handleSubmit } = useAppForm<SignInRequestDTO>({
     defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
     validationSchema: signInRequestSchema,
   });
@@ -19,7 +19,7 @@ const SignInForm = ({ onSubmit }: Properties): JSX.Element => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const handleFormSubmit = (event_: React.BaseSyntheticEvent): void => {
-    void handleSubmit((formData: SignInRequestDto) => {
+    void handleSubmit((formData: SignInRequestDTO) => {
       onSubmit(formData);
     })(event_);
   };
@@ -62,9 +62,6 @@ const SignInForm = ({ onSubmit }: Properties): JSX.Element => {
           type={isPasswordVisible ? 'text' : 'password'}
         />
       </div>
-      <p className={styles['form-reset-text']}>
-        Forgot password? <Link to={AppPath.SIGN_UP}>Reset</Link>
-      </p>
       <Button label="Log in" type="submit" />
     </form>
   );

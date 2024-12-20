@@ -1,0 +1,155 @@
+.service-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 81px;
+  background-color: var(--color-background-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 8px;
+}
+
+.service {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background: transparent;
+}
+
+.service-text {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.service-creator {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.creator-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.creator-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.creator-photo svg {
+  font-size: 40px;
+  color: var(--);
+}
+
+.creator-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.creator-data h2 {
+  font-weight: 400;
+  margin: 0;
+  font-size: 18px;
+}
+
+.creator-data h3 {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.service-name-link {
+  text-decoration: none;
+  color: var(--color-text-primary);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.service-name-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text-primary);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.service-name-link:hover::after {
+  width: 100%;
+}
+
+.service-name,
+.service-price h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+.service-rating {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.service-rating p {
+  margin: 0;
+}
+
+.service-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 400;
+  gap: 0;
+}
+
+.service-price h2 {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+/* Animation for top border */
+@keyframes gold-glow {
+  0% {
+    box-shadow: 0 0 5px gold;
+  }
+  50% {
+    box-shadow: 0 0 15px gold;
+  }
+  100% {
+    box-shadow: 0 0 5px gold;
+  }
+}
+
+.service-top {
+  border: 2px solid gold;
+  animation: gold-glow 1.5s infinite ease-in-out;
+}
+
+.trophy-icon {
+  color: gold;
+  margin-right: 5px;
+  vertical-align: middle;
+}

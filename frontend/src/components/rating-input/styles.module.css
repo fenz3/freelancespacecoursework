@@ -1,0 +1,45 @@
+.rating-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.rating-label-text {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.rating-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rating-star {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating-star:hover,
+.rating-star:focus {
+  outline: none;
+  color: #ffc107;
+}
+
+.filled-star {
+  color: #ffc107;
+}
+
+.disabled-star {
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.rating-error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}

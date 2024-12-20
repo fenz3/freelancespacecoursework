@@ -6,6 +6,8 @@ import { useAppSelector, usePopover } from '~/hooks/hooks.js';
 import { AppPath } from '~/common/enums/enums.js';
 import { Avatar, NavLink } from '../components.js';
 import { useLocation } from 'react-router-dom';
+import { getValidClassNames } from '~/helpers/helpers.js';
+import { UserRoles } from '~/common/enums/app/app.js';
 
 const Header = (): JSX.Element => {
   const location = useLocation();
@@ -21,12 +23,21 @@ const Header = (): JSX.Element => {
     return <></>;
   }
 
-  const { email, firstName, lastName } = authenticatedUser;
+  const { firstName, lastName, photoUrl } = authenticatedUser;
 
   const currentPath = location.pathname;
 
+  const isBigMargin =
+    [AppPath.MY_SERVICES, AppPath.SERVICES, AppPath.PROFILE].some(
+      (path) => path === location.pathname
+    ) || currentPath.startsWith('/service/');
+
   return (
-    <header className={styles['header']}>
+    <header
+      className={getValidClassNames(styles['header'], {
+        [styles['big-margin']]: isBigMargin,
+      })}
+    >
       <NavLink className={styles['logo-link'] as string} to={AppPath.ROOT}>
         <img alt="logo" className={styles['logo-img']} src={logoSrc} />
       </NavLink>
@@ -34,20 +45,21 @@ const Header = (): JSX.Element => {
         {currentPath != AppPath.SERVICES && (
           <HeaderLink label="Browse Services" link={AppPath.SERVICES} />
         )}
-        {currentPath != AppPath.MY_SERVICES && (
-          <HeaderLink label="My Services" link={AppPath.MY_SERVICES} />
-        )}
+        {currentPath != AppPath.MY_SERVICES &&
+          authenticatedUser.role !== UserRoles.CLIENT && (
+            <HeaderLink label="My Services" link={AppPath.MY_SERVICES} />
+          )}
+        <HeaderLink label="My Orders" link={AppPath.MY_ORDERS} />
         <UserPopover
-          email={email}
           isOpened={isUserOpened}
-          name={firstName + " " + lastName}
+          name={firstName + ' ' + lastName}
           onClose={onUserClose}
         >
           <button
             className={styles['user-popover-trigger']}
             onClick={isUserOpened ? onUserClose : onUserOpen}
           >
-            <Avatar name={firstName} />
+            <Avatar name={firstName} imageUrl={photoUrl} />
           </button>
         </UserPopover>
       </div>

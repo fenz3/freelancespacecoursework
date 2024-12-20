@@ -1,0 +1,91 @@
+.container {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 100%;
+  z-index: 2;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.imageLink {
+  width: 100%; /* Ensure the NavLink takes the full width */
+  height: auto; /* Adjust height as needed */
+  flex-shrink: 0; /* Prevent shrinking */
+  display: flex; /* Allow child image to stretch properly */
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  width: 30px;
+  height: 30px;
+  color: gray;
+}
+
+.container:hover .navButton {
+  opacity: 1;
+  visibility: visible;
+}
+
+.leftButton {
+  left: 10px;
+}
+
+.rightButton {
+  right: 10px;
+}
+
+/* Dots container */
+.dotsContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  opacity: 0; /* Start hidden */
+  visibility: hidden; /* Prevent focusability when hidden */
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.container:hover .dotsContainer {
+  opacity: 1; /* Fully visible */
+  visibility: visible; /* Ensure it is focusable */
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.activeDot {
+  background-color: #fff;
+}

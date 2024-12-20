@@ -26,7 +26,7 @@ const ServicesSearch = ({
   const handleSearch = (event_: React.BaseSyntheticEvent): void => {
     void handleSubmit((formData: { search: string }) => {
       if (formData.search.trim()) {
-        const skillsRoute = configureQueryString(AppPath.SKILLS, [
+        const skillsRoute = configureQueryString(AppPath.SERVICES, [
           [QueryParameterName.SEARCH, formData.search],
         ]);
         navigate(skillsRoute);

@@ -9,7 +9,6 @@ import { AppPath } from '~/common/enums/enums';
 
 type Properties = {
   children: React.ReactNode;
-  email: string;
   isOpened: boolean;
   name: string;
   onClose: () => void;
@@ -17,7 +16,6 @@ type Properties = {
 
 const UserPopover = ({
   children,
-  email,
   isOpened,
   name,
   onClose,
@@ -34,7 +32,6 @@ const UserPopover = ({
         <div className={styles['user-popover']}>
           <div className={styles['user-info']}>
             <p className={styles['user-name']}>{name}</p>
-            <p className={styles['user-email']}>{email}</p>
           </div>
           <div className={styles['buttons']}>
             <NavLink
